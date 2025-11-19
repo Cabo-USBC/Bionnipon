@@ -1,4 +1,4 @@
-import User from "../entities/user.entity.js"
+import User from "../entities/cliente.entity.js"
 
 export async function create(data: { name: string; email: string }) {
   return User.create({ data })
