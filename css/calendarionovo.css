@@ -101,3 +101,17 @@ header .current-date{
 .days li:not(.active):hover::before{
   background: #f2f2f2;
 }
+
+#minhaDiv{
+  background-color: #333;
+  position: fixed;
+  display: none;
+  padding: 100px;
+  width: 300px;
+  right: 0;
+  bottom: 0;
+  top:0;
+  z-index: 1;
+  border: 1px solid black 
+  
+}
