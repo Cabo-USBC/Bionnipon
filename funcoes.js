@@ -57,11 +57,11 @@ function abrirDiv(dia, mes, ano) {
   let dataKey = `${ano}-${mesFormatado}-${diaFormatado}`;
 
 
-  fetch('https://bionippon.com/servico.json') // ajustar para a rota correta
+  fetch('https://bionnipon.com/servico.json')                  // ajustar para a rota correta
     .then(response => response.json())
     .then(eventos => {
       let info = eventos[dataKey];
-      if (info) { // ajustar para a estrutura correta do JSON
+      if (info) {                                           // ajustar para a estrutura correta do JSON
         document.getElementById('tarefaDia').innerHTML = `
           <strong>${info.titulo}</strong><br>
           <span>${info.descricao}</span><br>
