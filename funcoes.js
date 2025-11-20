@@ -21,7 +21,7 @@ const renderCalendar = () => {
         // adding active class to li if the current day, month, and year matched
         let isToday = i === date.getDate() && currMonth === new Date().getMonth() 
                      && currYear === new Date().getFullYear() ? "active" : "";
-        liTag += `<li class="${isToday}" onclick = "abrirDiv()">${i}</li>`;
+        liTag += `<li class="${isToday}" onclick="abrirDiv(${i}, ${currMonth}, ${currYear})">${i}</li>`;
     }
     for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
         liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
@@ -46,11 +46,37 @@ prevNextIcon.forEach(icon => { // getting prev and next icons
         renderCalendar(); // calling renderCalendar function
     });
 });
-function abrirDiv() {
-    document.getElementById('minhaDiv').style.display = 'block';
-    document.getElementById('semDiv').style.display = 'block';
+
+
+function abrirDiv(dia, mes, ano) {
+  document.getElementById('tarefaDia').style.display = 'block';
+  document.getElementById('semDiv').style.display = 'block';
+
+  let diaFormatado = dia.toString().padStart(2, '0');
+  let mesFormatado = (mes + 1).toString().padStart(2, '0');
+  let dataKey = `${ano}-${mesFormatado}-${diaFormatado}`;
+
+
+  fetch('https://bionippon.com/servico.json') // ajustar para a rota correta
+    .then(response => response.json())
+    .then(eventos => {
+      let info = eventos[dataKey];
+      if (info) { // ajustar para a estrutura correta do JSON
+        document.getElementById('tarefaDia').innerHTML = `
+          <strong>${info.titulo}</strong><br>
+          <span>${info.descricao}</span><br>
+          <small>${dia}/${mes + 1}/${ano}</small>
+        `;
+      } else {
+        document.getElementById('tarefaDia').innerHTML = `Sem evento<br><small>${dia}/${mes + 1}/${ano}</small>`;
+      }
+    })
+    .catch(error => {
+      document.getElementById('tarefaDia').innerHTML = `Erro ao carregar eventos.`;
+      console.error(error);
+    });
 }
 function fecharDiv() {
-    document.getElementById('minhaDiv').style.display = 'none';
+    document.getElementById('tarefaDia').style.display = 'none';
     document.getElementById('semDiv').style.display = 'none';
 }
