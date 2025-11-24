@@ -1,6 +1,14 @@
-import { Estoque } from "../entities/estoque.js";
+import { prisma } from "../prisma/client.js";
 
-export interface IEstoqueRepository {
-  listar(): Promise<Estoque[]>;
-  atualizar(quantidade: number): Promise<Estoque>;
-}
+export const estoqueRepository = {
+  listar() {
+    return prisma.estoque.findMany();
+  },
+
+  atualizar(quantidade : number) {
+    return prisma.estoque.update({
+      where: { id: 1 }, // estoque só tem 1 registro
+      data: { quantidade }
+    });
+  }
+};

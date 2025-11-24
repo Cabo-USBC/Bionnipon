@@ -1,8 +1,31 @@
+import { prisma } from "../prisma/client.js";
 import { Cliente } from "../entities/cliente.js";
-export interface IClienteRepository {
-  criar(data: Cliente): Promise<Cliente>;
-  listar(): Promise<Cliente[]>;
-  buscar(id: number): Promise<Cliente | null>;
-  atualizar(id: number, data: Cliente): Promise<Cliente>;
-  remover(id: number): Promise<void>;
-}
+
+export const clienteRepository = {
+  criar(data: Cliente) {
+    return prisma.cliente.create({ data });
+  },
+
+  listar() {
+    return prisma.cliente.findMany();
+  },
+
+  buscar(id: number) {
+    return prisma.cliente.findUnique({
+      where: { id }
+    });
+  },
+
+  atualizar(id: number, data: Cliente) {
+    return prisma.cliente.update({
+      where: { id },
+      data
+    });
+  },
+
+  remover(id: number) {
+    return prisma.cliente.delete({
+      where: { id }
+    });
+  }
+};
