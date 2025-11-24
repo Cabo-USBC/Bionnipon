@@ -1,11 +1,15 @@
-import { estoqueRepository } from "../repositories/estoque.repository.js";
+import { servicoRepository } from "../repositories/servico.repository.js";
 
-export class EstoqueService {
-  listar() {
-    return estoqueRepository.listar();
+export class ServicoService {
+  criar(data : any) {
+    return servicoRepository.criar(data);
   }
 
-  atualizar(qtd: number) {
-    return estoqueRepository.atualizar(qtd);
+  listar() {
+    return servicoRepository.listar();
+  }
+
+  buscar(id : string) {
+    return servicoRepository.buscar(Number(id));
   }
 }
