@@ -1,31 +1,35 @@
-import { prisma } from "../prisma/client.js";
-import { Cliente } from "../entities/cliente.js";
+import cliente from "../entities/cliente.js"
 
-export const clienteRepository = {
-  criar(data: Cliente) {
-    return prisma.cliente.create({ data });
-  },
+export async function create(data: {
+  nome: string
+  telefone: string
+  endereco: string
+}) {
+  return cliente.create({ data })
+}
 
-  listar() {
-    return prisma.cliente.findMany();
-  },
+export async function findAll() {
+  return cliente.findMany({
+    include: { servicos: true }
+  })
+}
 
-  buscar(id: number) {
-    return prisma.cliente.findUnique({
-      where: { id }
-    });
-  },
+export async function findById(id: number) {
+  return cliente.findUnique({
+    where: { id },
+    include: { servicos: true }
+  })
+}
 
-  atualizar(id: number, data: Cliente) {
-    return prisma.cliente.update({
-      where: { id },
-      data
-    });
-  },
+export async function update(id: number, data: any) {
+  return cliente.update({
+    where: { id },
+    data
+  })
+}
 
-  remover(id: number) {
-    return prisma.cliente.delete({
-      where: { id }
-    });
-  }
-};
+export async function remove(id: number) {
+  return cliente.delete({
+    where: { id }
+  })
+}
