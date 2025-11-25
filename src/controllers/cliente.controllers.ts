@@ -27,3 +27,26 @@ export async function getClienteById(req: express.Request, res: express.Response
     res.status(404).json({ message: "User not found" })
   }
 }
+
+//Update
+export async function updateUser(req: express.Request, res: express.Response) {
+  const { id } = req.params
+  const { name, email } = req.body
+  const user = await ClienteService.updateCliente(Number(id), { name, email })
+  if (!user) {
+    return res.status(404).json({ message: "User not found" })
+  }
+
+  return res.status(200).json(user)
+}
+
+//Delete
+export async function deleteUser(req: express.Request, res: express.Response) {
+  const { id } = req.params
+  const result = await ClienteService.deleteCliente(Number(id))
+  if (result === null) {
+    return res.status(404).json({ message: "User not found" })
+  }
+
+  return res.status(204).send()
+}
