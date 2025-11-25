@@ -3,7 +3,7 @@ import { Router } from "express"
 import * as ClienteController from "../controllers/cliente.controllers.js"
 import { validateDto } from "../middlewares/validate.dto.js"
 import { CreateUserDto } from "../dtos/create-user.dto.js"
-import { UpdateUserDto } from "../dtos/update-user.dto.js"
+import { UpdateUserDto } from "../dtos/update-user.dtos.js"
 
 const router = Router()
 router.post("/client", validateDto(CreateUserDto), ClienteController.createCliente)
