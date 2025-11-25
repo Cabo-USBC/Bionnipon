@@ -8,6 +8,7 @@ body {
   font-size: 12px;
   font-family: 'Roboto', sans-serif;
 }
+
 @media (min-width: 360px) {
   body{
     font-size: 14px;
@@ -42,7 +43,7 @@ header {
   width: 100vw;
   top: 0;
   z-index: 1;
-  border: 1px solid black 
+  border: 1px solid black;
 }
 
 .menu ul {
@@ -68,11 +69,7 @@ header {
 
 a {
   text-decoration: none;
-  }
-
-/*a:hover {
-  
-}*/
+}
 
 .site-title,
 .site-subtitle {
@@ -106,12 +103,10 @@ a {
   margin-right: auto;
 }
 
-
 .inicio a {
   text-decoration: none;
   padding: 19px 15px;
 }
-
 
 .botao{
   width: 100px;
@@ -132,6 +127,16 @@ a {
     top: 100px;
     left: 50px;
 }
+
+
+.controls{
+    position: fixed;  
+    z-index: 5;    
+    bottom: 350px;
+    left: 70px;                
+    pointer-events: auto; 
+}
+
 
 #lista{
     z-index: 4;
