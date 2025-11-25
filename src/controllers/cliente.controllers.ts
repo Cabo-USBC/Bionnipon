@@ -1,23 +1,27 @@
 //Kenzo
 import type express from "express"
-import * as userService from "../services/user.service.js"
+import * as ClienteService from "../services/cliente.service.js"
 
-export async function createUser(req: express.Request, res: express.Response) {
+//Criar Cliente
+export async function createCliente(req: express.Request, res: express.Response) {
   const { name, email } = req.body
-  const user = await userService.createUser({ name, email })
-  res.status(201).json(user)
+  const cliente = await ClienteService.createCliente({ name, email })
+  res.status(201).json(cliente)
 }
 
+//Buscar todos clientes
 export async function getAllUsers(req: express.Request, res: express.Response) {
-  const users = await userService.getAllUsers()
-  res.status(200).json(users)
+  const cliente = await ClienteService.getAllUsers()
+  res.status(200).json(cliente)
 }
 
+
+//Buscar cliente por
 export async function getUserById(req: express.Request, res: express.Response) {
   const { id } = req.params
-  const user = await userService.getUserById(Number(id))
-  if (user) {
-    res.status(200).json(user)
+  const cliente = await ClienteService.getUserById(Number(id))
+  if (cliente) {
+    res.status(200).json(cliente)
   } else {
     res.status(404).json({ message: "User not found" })
   }
