@@ -1,13 +1,10 @@
-// Exibe histórico de clientes para a data selecionada
 async function ExibirHistorico(data) {
   const container = document.getElementById('listaHistorico');
   if (!container) return;
 
   container.innerHTML = '<p>Carregando...</p>';
 
-  // Ajuste a URL abaixo conforme a rota real do seu cliente.routes.ts
-  // Exemplo esperado: GET /clientes/historico?data=2025-11-25
-  const url = `/clientes/historico?data=${encodeURIComponent(data)}`;
+  const url = `src/routes/servico.routes.ts?data=${encodeURIComponent(data)}`;
 
   try {
     const res = await fetch(url, { method: 'GET' });
@@ -47,7 +44,7 @@ function renderizarLista(data, container) {
     const li = document.createElement('li');
     li.className = 'historico-item';
 
-    // Suporta nomes de campos comuns; ajuste conforme seu JSON real
+    // Suporta nomes de campos comuns; alterar para o JSON
     const nome = item.nome || item.name || '—';
     const horario = item.horario || item.time || item.hora || '—';
     const procedimento = item.procedimento || item.procedure || item.servico || '—';
@@ -70,7 +67,7 @@ function renderizarLista(data, container) {
   container.appendChild(ul);
 }
 
-// Pequena função para escapar HTML e evitar injeções
+// escapar HTML e evitar injeções
 function escapeHtml(str) {
   if (!str && str !== 0) return '';
   return String(str)
