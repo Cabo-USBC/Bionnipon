@@ -116,12 +116,11 @@ a {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Ajustes relevantes para sobrepor main sobre listaHistorico */
 .listaHistorico{
     position: fixed;
     width: 800px;
     bottom: 20px;
-    z-index: 2;       /* diminuir para ficar abaixo do main */
+    z-index: 2;
     background-color: white;
     display: block;
     padding: 30px;
