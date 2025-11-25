@@ -9,17 +9,18 @@ export async function createCliente(req: express.Request, res: express.Response)
   res.status(201).json(cliente)
 }
 
+
 //Buscar todos clientes
-export async function getAllUsers(req: express.Request, res: express.Response) {
-  const cliente = await ClienteService.getAllUsers()
+export async function getAllClientes(req: express.Request, res: express.Response) {
+  const cliente = await ClienteService.getAllClientes()
   res.status(200).json(cliente)
 }
 
 
 //Buscar cliente por
-export async function getUserById(req: express.Request, res: express.Response) {
+export async function getClienteById(req: express.Request, res: express.Response) {
   const { id } = req.params
-  const cliente = await ClienteService.getUserById(Number(id))
+  const cliente = await ClienteService.getClienteById(Number(id))
   if (cliente) {
     res.status(200).json(cliente)
   } else {
