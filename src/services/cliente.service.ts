@@ -1,24 +1,30 @@
-import { clienteRepository } from "../repositories/cliente.repository.js";
-import { Cliente } from "../entities/cliente.js";
+import * as clienteRepository from "../repositories/cliente.repository.js"
 
-export class ClienteService {
-  criar(data: Cliente) {
-    return clienteRepository.criar(data);
+export async function createCliente(data: { 
+  nome: string,
+  telefone: string,
+  endereco: string
+}) {
+  return await clienteRepository.create(data)
+}
+
+export async function getAllClientes() {
+  return await clienteRepository.findAll()
+}
+
+export async function getClienteById(id: number) {
+  return await clienteRepository.findById(id)
+}
+
+export async function updateCliente(id: number, data: { 
+  nome?: string,
+  telefone?: string,
+  endereco?: string
+}) {
+  const cliente = await clienteRepository.findById(id)
+  if (!cliente) {
+    return null
   }
 
-  listar() {
-    return clienteRepository.listar();
-  }
-
-  buscar(id: number) {
-    return clienteRepository.buscar(id); 
-  }
-
-  atualizar(id: number, data: Cliente) {
-    return clienteRepository.atualizar(id, data);
-  }
-
-  remover(id: number) {
-    return clienteRepository.remover(id);
-  }
+  return await clienteRepository.update(id, data)
 }
