@@ -126,8 +126,8 @@ a {
     padding: 30px;
     top: 100px;
     left: 50px;
+    border-radius: 5px;
 }
-
 
 .controls{
     position: fixed;  

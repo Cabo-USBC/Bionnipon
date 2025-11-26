@@ -120,3 +120,13 @@ a {
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.Logo {
+  display: block;
+  position: fixed;
+  margin: 0 auto;
+  max-width: 200px;
+  bottom: 400px;
+  left: 570px;
+  height: auto;
+}
