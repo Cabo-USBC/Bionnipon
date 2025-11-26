@@ -28,3 +28,7 @@ export async function updateCliente(id: number, data: {
 
   return await clienteRepository.update(id, data)
 }
+
+export async function deletecliente(id: number) {
+  return await clienteRepository.remove(id)
+}
