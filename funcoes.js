@@ -63,8 +63,12 @@ function abrirDiv(dia, mes, ano) {
       let info = eventos[dataKey];
       if (info) {                                           // ajustar para a estrutura correta do JSON
         document.getElementById('tarefaDia').innerHTML = `
-          <strong>${info.titulo}</strong><br>
-          <span>${info.descricao}</span><br>
+          <strong>${info.tipo}</strong><br>
+          <span>${info.prazo}</span><br>
+          <span>${info.garantia}</span><br>
+          <span>${info.clienteId}</span><br>
+          <span>${info.id}</span><br>
+          <span>${info.data}</span><br>
           <small>${dia}/${mes + 1}/${ano}</small>
         `;
       } else {
