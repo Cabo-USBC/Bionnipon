@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bionnipon</title>
-    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/historico.css">
     <link href="https://fonts.googleapis.com/css2?family=Caladea:ital@1&family=Lora:wght@500&family=Rancho&family=Roboto:wght@300&display=swap" rel="stylesheet"> 
     <script src="https://kit.fontawesome.com/6e9d1849e5.js" crossorigin="anonymous"></script>
     <script src="funcoes.js"></script>
+    <script src="funcaoHistorico.js" defer></script>
 </head>
 
 <body>
@@ -22,10 +23,19 @@
                 <li><a href="historico.html">Historico</a></li>
             </ul>
         </nav> 
-    </section>
     </header>
+    </section>
 
-   
+    <main>
+      <div class="controls">
+        <label for="dataHistorico">Selecione a data:</label>
+        <input type="date" id="dataHistorico" name="dataHistorico">
+        <button id="btnConsultar">Consultar</button>
+      </div>
+
+      <div id="listaHistorico" class="listaHistorico"></div>
+    </main>
+
 </body>
 
 </html>

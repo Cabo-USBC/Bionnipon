@@ -1,7 +1,5 @@
-export class Estoque {
-  constructor(
-    public item: string,
-    public quantidade: number,
-    public id?: number
-  ) {}
-}
+import {PrismaClient} from "@prisma/client"
+
+const prisma = new PrismaClient()
+
+export default prisma.estoque

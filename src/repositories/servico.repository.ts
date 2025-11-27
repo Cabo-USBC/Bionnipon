@@ -1,7 +1,37 @@
-import { Servico } from "../entities/servico.js";
+import servico from "../entities/servico.js"
 
-export interface IServicoRepository {
-  criar(data: Servico): Promise<Servico>;
-  listar(): Promise<Servico[]>;
-  buscar(id: number): Promise<Servico | null>;
+export async function create(data: {
+  tipo: string
+  data: Date
+  prazo: number
+  garantia: number
+  clienteId: number
+}) {
+  return servico.create({ data })
+}
+
+export async function findAll() {
+  return servico.findMany({
+    include: { cliente: true }
+  })
+}
+
+export async function findById(id: number) {
+  return servico.findUnique({
+    where: { id },
+    include: { cliente: true }
+  })
+}
+
+export async function update(id: number, data: any) {
+  return servico.update({
+    where: { id },
+    data
+  })
+}
+
+export async function remove(id: number) {
+  return servico.delete({
+    where: { id }
+  })
 }

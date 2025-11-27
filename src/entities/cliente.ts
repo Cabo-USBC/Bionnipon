@@ -1,8 +1,5 @@
-export class Cliente {
-  constructor(
-    public nome: string,
-    public telefone: string,
-    public endereco: string,
-    public id?: number
-  ) {}
-}
+import {PrismaClient} from "@prisma/client"
+
+const prisma = new PrismaClient()
+
+export default prisma.cliente
