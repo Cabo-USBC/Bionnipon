@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/estoque.css">
     <link href="https://fonts.googleapis.com/css2?family=Caladea:ital@1&family=Lora:wght@500&family=Rancho&family=Roboto:wght@300&display=swap" rel="stylesheet"> 
     <script src="https://kit.fontawesome.com/6e9d1849e5.js" crossorigin="anonymous"></script>
-    <script src="funcoes.js"></script>
+    <script src="funcaoCarregarCliente.js"></script>
 </head>
 
 <body>
@@ -24,9 +24,32 @@
         </nav>
     </section>
     </header>
-    <div class = "listaEstoque"> Estoque</div>
-        <div id = "lista">Quantidade de ratoeira: 24 peças</div>
+   <!-- <div class = "listaEstoque"> Clientes</div>
+        <div id = "lista"></div>-->
+    <main>
+
+    <div class="controls">
+      <input id="search" type="search" placeholder="Buscar por nome..." />
+      <label for="view">Exibir como:</label>
+      <select id="view">
+        <option value="cards">Cards</option>
+        <option value="table">Tabela</option>
+        <option value="list">Lista</option>
+      </select>
+      <button id="reload">Recarregar</button>
+    </div>
+
+    <div id="status" class="status">Carregando...</div>
+
+    <section id="app" class="grid"></section>
+
+    <aside id="detail" class="detail hidden">
+      <button id="closeDetail" class="close">Fechar</button>
+      <div id="detailContent"></div>
+    </aside>
+  </main>
    
 </body>
 
-</html>
+
+

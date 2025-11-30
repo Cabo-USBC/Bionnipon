@@ -13,6 +13,7 @@ export async function createCliente(req: express.Request, res: express.Response)
 //Buscar todos clientes
 export async function getAllClientes(req: express.Request, res: express.Response) {
   const cliente = await clienteService.getAllClientes()
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5500');
   res.status(200).json(cliente)
 }
 
