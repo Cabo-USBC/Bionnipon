@@ -18,7 +18,7 @@ import estoque from "../entities/estoque.js"
  
  
  //Buscar estoque por
- export async function getEstoqueeById(req: express.Request, res: express.Response) {
+ export async function getEstoqueById(req: express.Request, res: express.Response) {
    const { id } = req.params
    const estoque = await estoqueServiceService.getEstoqueById(Number(id))
    if (estoque) {
@@ -37,7 +37,7 @@ import estoque from "../entities/estoque.js"
      return res.status(404).json({ message: "Estoque not found" })
    }
  
-   return res.status(200).json(user)
+   return res.status(200).json(estoque)
  }
  
  //Delete
