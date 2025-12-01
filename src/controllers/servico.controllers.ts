@@ -13,7 +13,9 @@ export async function createServico(req: express.Request, res: express.Response)
       garantia,
       clienteId
     })
-
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5500');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
     return res.status(201).json(servico)
   } catch (err: any) {
     return res.status(400).json({ message: err.message })
@@ -23,6 +25,7 @@ export async function createServico(req: express.Request, res: express.Response)
 
 export async function getAllServicos(req: express.Request, res: express.Response) {
   const servicos = await servicoService.getAllServicos()
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5500');
   return res.status(200).json(servicos)
 }
 

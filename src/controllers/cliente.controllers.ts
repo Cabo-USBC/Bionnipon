@@ -6,6 +6,9 @@ import * as clienteService from "../services/cliente.service.js"
 export async function createCliente(req: express.Request, res: express.Response) {
   const { nome, telefone, endereco } = req.body
   const cliente = await clienteService.createCliente({ nome, telefone, endereco })
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5500');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   res.status(201).json(cliente)
 }
 
