@@ -1,35 +1,35 @@
-import cliente from "../entities/cliente.js"
+import Cliente from "../entities/cliente.js"
 
 export async function create(data: {
   nome: string
   telefone: string
   endereco: string
 }) {
-  return cliente.create({ data })
+  return Cliente.create({ data })
 }
 
 export async function findAll() {
-  return cliente.findMany({
+  return Cliente.findMany({
     include: { servicos: true }
   })
 }
 
 export async function findById(id: number) {
-  return cliente.findUnique({
+  return Cliente.findUnique({
     where: { id },
     include: { servicos: true }
   })
 }
 
 export async function update(id: number, data: any) {
-  return cliente.update({
+  return Cliente.update({
     where: { id },
     data
   })
 }
 
 export async function remove(id: number) {
-  return cliente.delete({
+  return Cliente.delete({
     where: { id }
   })
 }

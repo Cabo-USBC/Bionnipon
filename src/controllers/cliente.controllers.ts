@@ -4,8 +4,8 @@ import * as ClienteService from "../services/cliente.service.js"
 
 //Criar Cliente
 export async function createCliente(req: express.Request, res: express.Response) {
-  const { name, email } = req.body
-  const cliente = await ClienteService.createCliente({ name, email })
+  const { nome, telefone, endereco } = req.body
+  const cliente = await ClienteService.createCliente({ nome, telefone, endereco })
   res.status(201).json(cliente)
 }
 
@@ -31,8 +31,8 @@ export async function getClienteById(req: express.Request, res: express.Response
 //Update
 export async function updateUser(req: express.Request, res: express.Response) {
   const { id } = req.params
-  const { name, email } = req.body
-  const user = await ClienteService.updateCliente(Number(id), { name, email })
+  const { nome, telefone, endereco } = req.body
+  const user = await ClienteService.updateCliente(Number(id), { nome, telefone, endereco })
   if (!user) {
     return res.status(404).json({ message: "User not found" })
   }
