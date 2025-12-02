@@ -14,6 +14,9 @@ export async function createServico(req: express.Request, res: express.Response)
 //Buscar todos servicos
 export async function getAllServicos(req: express.Request, res: express.Response) {
   const servico = await ServicoService.getAllServicos()
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5500');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   res.status(200).json(servico)
 }
 

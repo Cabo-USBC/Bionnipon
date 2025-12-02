@@ -123,7 +123,7 @@ a {
     z-index: 2;
     background-color: white;
     display: block;
-    padding: 30px;
+    padding: 50px;
     top: 100px;
     left: 50px;
     border-radius: 5px;
@@ -132,7 +132,7 @@ a {
 .controls{
     position: fixed;  
     z-index: 5;    
-    bottom: 350px;
+    bottom: 590px;
     left: 70px;                
     pointer-events: auto; 
 }

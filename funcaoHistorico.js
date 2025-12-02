@@ -4,7 +4,8 @@ async function ExibirHistorico(data) {
 
   container.innerHTML = '<p>Carregando...</p>';
 
-  const url = `src/routes/servico.routes.ts?data=${encodeURIComponent(data)}`;
+  // envia a data selecionada como query param (formato YYYY-MM-DD)
+  const url = `http://localhost:3000/servico${data ? `?data=${encodeURIComponent(data)}` : ''}`;
 
   try {
     const res = await fetch(url, { method: 'GET' });
@@ -13,24 +14,38 @@ async function ExibirHistorico(data) {
     }
     const json = await res.json();
 
-    renderizarLista(json, container);
+    // json esperado: array de registros no formato informado
+    renderizarLista(json, container, data);
 
   } catch (err) {
     console.error(err);
-    container.innerHTML = `<p class="erro">Não foi possível carregar o histórico: ${err.message}</p>`;
+    container.innerHTML = `<p class="erro">Não foi possível carregar o histórico: ${escapeHtml(err.message)}</p>`;
   }
 }
 
-function renderizarLista(data, container) {
+function renderizarLista(data, container, filterDate) {
   container.innerHTML = ''; // limpa
 
-  if (!data || (Array.isArray(data) && data.length === 0)) {
+  if (!data || !Array.isArray(data) || data.length === 0) {
     container.innerHTML = '<p>Nenhum cliente atendido nessa data.</p>';
     return;
   }
 
-  // Se o backend retornar um objeto com propriedade (ex: { clientes: [...] }), normalize:
-  let lista = Array.isArray(data) ? data : (data.clientes || data.items || []);
+  // Se foi passada uma data para filtrar (YYYY-MM-DD), filtra os registros que têm a mesma data local
+  let lista = data;
+  if (filterDate) {
+    lista = data.filter(item => {
+      if (!item || !item.data) return false;
+      const d = new Date(item.data);
+      if (isNaN(d)) return false;
+      // monta YYYY-MM-DD no timezone local para comparar com o input date (que normalmente é local)
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      const itemDate = `${yyyy}-${mm}-${dd}`;
+      return itemDate === filterDate;
+    });
+  }
 
   if (!Array.isArray(lista) || lista.length === 0) {
     container.innerHTML = '<p>Nenhum cliente atendido nessa data.</p>';
@@ -44,20 +59,38 @@ function renderizarLista(data, container) {
     const li = document.createElement('li');
     li.className = 'historico-item';
 
-    // Suporta nomes de campos comuns; alterar para o JSON
-    const nome = item.nome || item.name || '—';
-    const horario = item.horario || item.time || item.hora || '—';
-    const procedimento = item.procedimento || item.procedure || item.servico || '—';
-    const observacao = item.observacao || item.obs || '';
+    // campos do novo JSON
+    const id = item.id ?? '—';
+    const tipo = item.tipo ?? '—';
+    const dataISO = item.data ?? null;
+    const prazo = (item.prazo !== undefined && item.prazo !== null) ? `${item.prazo} dias` : '—';
+    const garantia = (item.garantia !== undefined && item.garantia !== null) ? `${item.garantia} dias` : '—';
+
+    const cliente = item.cliente || {};
+    const nomeCliente = cliente.nome || '—';
+    const telefone = cliente.telefone || '—';
+    const endereco = cliente.endereco || '—';
+
+    const dataFormatada = dataISO ? formatDateTimeLocal(dataISO) : '—';
 
     li.innerHTML = `
       <div class="item-header">
-        <strong class="item-nome">${escapeHtml(nome)}</strong>
-        <span class="item-horario">${escapeHtml(horario)}</span>
+        <strong class="item-nome">${escapeHtml(nomeCliente)}<br/></strong>
+        <span class="item-tipo">Tipo: ${escapeHtml(tipo)}<br/></span>
+        <span class="item-data">${escapeHtml(dataFormatada)}<br/></span>
       </div>
       <div class="item-body">
-        <span class="item-procedimento">Procedimento: ${escapeHtml(procedimento)}</span>
-        ${observacao ? `<div class="item-obs">Obs: ${escapeHtml(observacao)}</div>` : ''}
+        <div class="item-detalhes">
+          <span class="item-prazo">Prazo: ${escapeHtml(prazo)}<br/></span>
+          <span class="item-garantia">Garantia: ${escapeHtml(garantia)}<br/></span>
+        </div>
+        <div class="item-contato">
+          <span class="item-telefone">Tel: ${escapeHtml(telefone)}<br/></span>
+          <span class="item-endereco">End: ${escapeHtml(endereco)}<br/></span>
+        </div>
+        <div class="item-meta">
+          <small>ID registro: ${escapeHtml(String(id))}<br/></small>
+        </div>
       </div>
     `;
 
@@ -67,9 +100,26 @@ function renderizarLista(data, container) {
   container.appendChild(ul);
 }
 
+// formata data ISO para uma string legível (data local + hora local)
+function formatDateTimeLocal(iso) {
+  try {
+    const d = new Date(iso);
+    if (isNaN(d)) return iso;
+    // usa o formato YYYY-MM-DD HH:MM (ajuste conforme preferir)
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const min = String(d.getMinutes()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+  } catch (e) {
+    return iso;
+  }
+}
+
 // escapar HTML e evitar injeções
 function escapeHtml(str) {
-  if (!str && str !== 0) return '';
+  if (str === null || str === undefined) return '';
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
