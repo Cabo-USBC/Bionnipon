@@ -39,7 +39,7 @@ header {
 
 .menu {
   background-color: rgb(255, 255, 255);
-  position: fixed;
+  position: absolute;
   width: 100vw;
   top: 0;
   z-index: 1;
@@ -104,14 +104,16 @@ a {
 }
 
 .listaClientes{
-    position: fixed;
+    position: absolute;
     width: 800px;
-    bottom: 20px;
     z-index: 2;
     background-color: white;
-    display: block;
+    display: grid;
     padding: 30px;
     top: 100px;
     left: 50px;
     border-radius: 5px;
+}
+h2{
+    margin-top: 20px;
 }
