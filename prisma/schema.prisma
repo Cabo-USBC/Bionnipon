@@ -24,10 +24,3 @@ model Servico {
   clienteId   Int
   cliente     Cliente  @relation(fields: [clienteId], references: [id])
 }
-
-model Estoque {
-  id         Int    @id @default(autoincrement())
-  item       String // só as ratoeiras
-  quantidade Int
-}
-
