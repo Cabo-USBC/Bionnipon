@@ -1,5 +1,6 @@
 import "dotenv/config"
 import express from "express"
+<<<<<<< HEAD
 import clienteRoutes from "./routes/cliente.routes.js"
 import servicoRoutes from "./routes/servico.routes.js"
 
@@ -16,6 +17,16 @@ app.use(cors({
   allowedHeaders: ['Content-Type','Authorization'],
   credentials: false
 }));
+=======
+import clientRoutes from "./routes/cliente.routes.js"
+import ServicoRoutes from "./routes/servico.routes.js" 
+
+
+const app = express()
+app.use(express.json())
+app.use(clientRoutes)
+app.use(ServicoRoutes)
+>>>>>>> 4358e27583d316fbb764e6e35bfd101aa054708b
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
