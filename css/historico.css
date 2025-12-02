@@ -39,7 +39,7 @@ header {
 
 .menu {
   background-color: rgb(255, 255, 255);
-  position: fixed;
+  position: absolute;
   width: 100vw;
   top: 0;
   z-index: 1;
@@ -117,12 +117,12 @@ a {
 }
 
 .listaHistorico{
-    position: fixed;
+    position: absolute;
     width: 800px;
     bottom: 20px;
     z-index: 2;
     background-color: white;
-    display: block;
+    display: flex;
     padding: 50px;
     top: 100px;
     left: 50px;
@@ -130,18 +130,21 @@ a {
 }
 
 .controls{
-    position: fixed;  
+    position: absolute;  
     z-index: 5;    
-    bottom: 590px;
-    left: 70px;                
+    top: 100px;
+    left: 70px;             
     pointer-events: auto; 
 }
 
-
-#lista{
-    z-index: 4;
-    color: black;
-    position: fixed;
-    top: 200px;
-    left: 70px;
+.historico-lista {
+  position: absolute;
+  width: 800px;
+  z-index: 1;
+  background-color: white;
+  display: grid;
+  padding: 50px;
+  top: 100px;
+  left: 0px;
+  border-radius: 5px;
 }
